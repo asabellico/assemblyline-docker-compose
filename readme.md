@@ -56,3 +56,59 @@ Pull the containers and perform first time only setup and install.
     sudo docker-compose -f bootstrap-compose.yaml pull 
     sudo docker-compose -f bootstrap-compose.yaml up -d 
  
+
+ ---
+
+ # installazione assemblyline minimal
+
+git clone https://github.com/CybercentreCanada/assemblyline-docker-compose
+cd assemblyline-docker-compose/minimal_appliance/
+openssl req -nodes -x509 -newkey rsa:4096 -keyout ./config/ -out ./config/ -days 365 -subj "/C=CA/ST=Ontario/L=Ottawa/O=CCCS/CN=assemblyline.local"
+
+#cd privilege-core-image
+#docker build -t privilege-core-image --build-arg "version=latest" .
+#cd ..
+
+docker-compose up -d
+
+# only first time
+docker-compose -f bootstrap-compose.yaml up -d first_time_setup; docker-compose -f bootstrap-compose.yaml logs -f first_time_setup
+
+# ANALYZER ATTIVATI
+docker-compose -f bootstrap-compose.yaml up -d service_configextractor; docker-compose -f bootstrap-compose.yaml logs -f service_configextractor
+docker-compose -f bootstrap-compose.yaml up -d service_deobfuscripter; docker-compose -f bootstrap-compose.yaml logs -f service_deobfuscripter
+docker-compose -f bootstrap-compose.yaml up -d service_floss; docker-compose -f bootstrap-compose.yaml logs -f service_floss
+docker-compose -f bootstrap-compose.yaml up -d service_frankenstrings; docker-compose -f bootstrap-compose.yaml logs -f service_frankenstrings
+docker-compose -f bootstrap-compose.yaml up -d service_oletools; docker-compose -f bootstrap-compose.yaml logs -f service_oletools
+docker-compose -f bootstrap-compose.yaml up -d service_vipermonkey; docker-compose -f bootstrap-compose.yaml logs -f service_vipermonkey
+docker-compose -f bootstrap-compose.yaml up -d service_xlmmacrodeobfuscator; docker-compose -f bootstrap-compose.yaml logs -f service_xlmmacrodeobfuscator
+docker-compose -f bootstrap-compose.yaml up -d service_yara; docker-compose -f bootstrap-compose.yaml logs -f service_yara
+docker-compose -f bootstrap-compose.yaml up -d service_pefile; docker-compose -f bootstrap-compose.yaml logs -f service_pefile
+docker-compose -f bootstrap-compose.yaml up -d service_peepdf; docker-compose -f bootstrap-compose.yaml logs -f service_peepdf
+docker-compose -f bootstrap-compose.yaml up -d service_pdfid; docker-compose -f bootstrap-compose.yaml logs -f service_pdfid
+docker-compose -f bootstrap-compose.yaml up -d service_pixaxe; docker-compose -f bootstrap-compose.yaml logs -f service_pixaxe
+docker-compose -f bootstrap-compose.yaml up -d service_emlparser; docker-compose -f bootstrap-compose.yaml logs -f service_emlparser
+docker-compose -f bootstrap-compose.yaml up -d service_characterize; docker-compose -f bootstrap-compose.yaml logs -f service_characterize
+docker-compose -f bootstrap-compose.yaml up -d service_extract; docker-compose -f bootstrap-compose.yaml logs -f service_extract
+docker-compose -f bootstrap-compose.yaml up -d service_jsjaws; docker-compose -f bootstrap-compose.yaml logs -f service_jsjaws
+docker-compose -f bootstrap-compose.yaml up -d service_overpower; docker-compose -f bootstrap-compose.yaml logs -f service_overpower
+docker-compose -f bootstrap-compose.yaml up -d service_metapeek; docker-compose -f bootstrap-compose.yaml logs -f service_metapeek
+docker-compose -f bootstrap-compose.yaml up -d service_safelist; docker-compose -f bootstrap-compose.yaml logs -f service_safelist
+docker-compose -f bootstrap-compose.yaml up -d service_urldownloader; docker-compose -f bootstrap-compose.yaml logs -f service_urldownloader
+docker-compose -f bootstrap-compose.yaml up -d service_unpacker; docker-compose -f bootstrap-compose.yaml logs -f service_unpacker
+docker-compose -f bootstrap-compose.yaml up -d service_virustotal; docker-compose -f bootstrap-compose.yaml logs -f service_virustotal
+docker-compose -f bootstrap-compose.yaml up -d service_sigma; docker-compose -f bootstrap-compose.yaml logs -f service_sigma
+docker-compose -f bootstrap-compose.yaml up -d service_antivirus; docker-compose -f bootstrap-compose.yaml logs -f service_antivirus
+
+# ANALYZER NON ATTIVATI
+#docker-compose -f bootstrap-compose.yaml up -d service_cuckoo; docker-compose -f bootstrap-compose.yaml logs -f service_cuckoo
+#docker-compose -f bootstrap-compose.yaml up -d service_suricata; docker-compose -f bootstrap-compose.yaml logs -f service_suricata
+#docker-compose -f bootstrap-compose.yaml up -d service_torrentslicer; docker-compose -f bootstrap-compose.yaml logs -f service_torrentslicer
+#docker-compose -f bootstrap-compose.yaml up -d service_beaver; docker-compose -f bootstrap-compose.yaml logs -f service_beaver
+#docker-compose -f bootstrap-compose.yaml up -d service_espresso; docker-compose -f bootstrap-compose.yaml logs -f service_espresso
+#docker-compose -f bootstrap-compose.yaml up -d service_apkaye; docker-compose -f bootstrap-compose.yaml logs -f service_apkaye
+#docker-compose -f bootstrap-compose.yaml up -d service_iparse; docker-compose -f bootstrap-compose.yaml logs -f service_iparse
+#docker-compose -f bootstrap-compose.yaml up -d service_tagcheck; docker-compose -f bootstrap-compose.yaml logs -f service_tagcheck
+#docker-compose -f bootstrap-compose.yaml up -d service_metadefender; docker-compose -f bootstrap-compose.yaml logs -f service_metadefender
+#docker-compose -f bootstrap-compose.yaml up -d service_swiffer; docker-compose -f bootstrap-compose.yaml logs -f service_swiffer
+#docker-compose -f bootstrap-compose.yaml up -d service_unpacme; docker-compose -f bootstrap-compose.yaml logs -f service_unpacme

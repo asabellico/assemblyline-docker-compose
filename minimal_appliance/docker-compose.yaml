@@ -10,14 +10,15 @@ services:
     command: server /data
     networks: [core]
     volumes:
-    - filestore:/data
+      - filestore:/data
     restart: on-failure
 
   elasticsearch:
     image: ${REGISTRY}docker.elastic.co/elasticsearch/elasticsearch:7.17.4
     environment:
       - ingest.geoip.downloader.enabled=false
-      - xpack.security.enabled=true
+      - xpack.security.enabled=false
+      # - xpack.security.transport.ssl.enabled=true
       - discovery.type=single-node
       - logger.level=WARN
       - "ELASTIC_PASSWORD=${ELASTIC_PASSWORD}"
